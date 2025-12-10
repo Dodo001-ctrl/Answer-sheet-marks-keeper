@@ -422,14 +422,15 @@ export default function AnswerSheetScanner() {
     try {
       setStatus('Requesting camera access...');
 
-      const stream = await navigator.mediaDevices.getUserMedia({
+      // const stream = await navigator.mediaDevices.getUserMedia({
+      let constraints = {
         video: {
           width: { ideal: 1280 },
           height: { ideal: 720 },
           facingMode: cameraFacing      
         },
         audio: false
-      });
+      };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
 
