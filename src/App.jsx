@@ -424,6 +424,7 @@ export default function AnswerSheetScanner() {
 
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
+          faceingMode: { exact: cameraFacing},
           width: { ideal: 1280 },
           height: { ideal: 720 }
         },
