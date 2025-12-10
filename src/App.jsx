@@ -469,25 +469,40 @@ export default function AnswerSheetScanner() {
     }, 300);
   };
 
+  // const stopCamera = () => {
+  //   if (streamRef.current) {
+  //     streamRef.current.getTracks().forEach(track => {
+  //       track.stop();
+  //     });
+  //     streamRef.current = null;
+  //   }
+
+  //   if (videoRef.current) {
+  //     videoRef.current.srcObject = null;
+  //   }
+
+  //   setIsScanning(false);
+  //   setStatus('');
+  //   setCapturedImage(null);
+  //   setShowManualEntry(false);
+  // };
+
   const stopCamera = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => {
-        track.stop();
-      });
-      streamRef.current = null;
-    }
+  if (streamRef.current) {
+    streamRef.current.getTracks().forEach(track => track.stop());
+    streamRef.current = null;
+  }
 
-    if (videoRef.current) {
-      videoRef.current.srcObject = null;
-    }
+  if (videoRef.current) {
+    videoRef.current.srcObject = null;
+  }
 
-    setIsScanning(false);
-    setStatus('');
-    setCapturedImage(null);
-    setShowManualEntry(false);
+  setIsScanning(false);
+  setStatus('');
+  setCapturedImage(null);
+  setShowManualEntry(false);
+};
 
-
-  };
 
   const captureFrame = () => {
     if (!videoRef.current || !canvasRef.current) return;
@@ -514,25 +529,25 @@ export default function AnswerSheetScanner() {
     }));
   };
 
-  const confirmScan = () => {
-    if (!currentScan.name || !currentScan.rollNo || !currentScan.marks) {
-      alert('Please fill in all fields (Name, Roll No, and Marks)');
-      return;
-    }
+  // const confirmScan = () => {
+  //   if (!currentScan.name || !currentScan.rollNo || !currentScan.marks) {
+  //     alert('Please fill in all fields (Name, Roll No, and Marks)');
+  //     return;
+  //   }
 
-    const isDuplicate = scannedData.some(item => item.rollNo === currentScan.rollNo);
-    if (!isDuplicate) {
-      setScannedData([...scannedData, { ...currentScan, id: Date.now(), image: capturedImage }]);
+  //   const isDuplicate = scannedData.some(item => item.rollNo === currentScan.rollNo);
+  //   if (!isDuplicate) {
+  //     setScannedData([...scannedData, { ...currentScan, id: Date.now(), image: capturedImage }]);
 
-      // Reset to camera view
-      setCurrentScan({ name: '', rollNo: '', marks: '' });
-      setCapturedImage(null);
-      setShowManualEntry(false);
-      setStatus('✓ Added to list! Capture next answer sheet');
-    } else {
-      setStatus('⚠ Roll number already exists in list');
-    }
-  };
+  //     // Reset to camera view
+  //     setCurrentScan({ name: '', rollNo: '', marks: '' });
+  //     setCapturedImage(null);
+  //     setShowManualEntry(false);
+  //     setStatus('✓ Added to list! Capture next answer sheet');
+  //   } else {
+  //     setStatus('⚠ Roll number already exists in list');
+  //   }
+  // };
 
   // const cancelCapture = () => {
   //   setCapturedImage(null);
@@ -540,6 +555,30 @@ export default function AnswerSheetScanner() {
   //   setCurrentScan({ name: '', rollNo: '', marks: '' });
   //   setStatus('✓ Camera ready! Click "Capture" to scan an answer sheet');
   // };
+
+  const confirmScan = () => {
+  if (!currentScan.name || !currentScan.rollNo || !currentScan.marks) {
+    alert('Please fill in all fields (Name, Roll No, and Marks)');
+    return;
+  }
+
+  const isDuplicate = scannedData.some(item => item.rollNo === currentScan.rollNo);
+  if (!isDuplicate) {
+    setScannedData([...scannedData, { ...currentScan, id: Date.now(), image: capturedImage }]);
+
+    setCurrentScan({ name: '', rollNo: '', marks: '' });
+    setCapturedImage(null);
+    setShowManualEntry(false);
+
+    // IMPORTANT: restart camera for next scan
+    startCamera();
+
+    setStatus('✓ Added to list! Capture next answer sheet');
+  } else {
+    setStatus('⚠ Roll number already exists in list');
+  }
+};
+
 
   const cancelCapture = () => {
     setCapturedImage(null);
