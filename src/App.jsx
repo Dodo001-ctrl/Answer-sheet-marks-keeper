@@ -1070,26 +1070,28 @@ export default function AnswerSheetScanner() {
 
                   {!isScanning ? (
                     <button onClick={startCamera} className="btn btn-primary btn-full">
-                      <Camera size={20} />
+                      <Camera size={18} />
                       Start Camera
                     </button>
                   ) : !showManualEntry ? (
                     <>
                       <button onClick={captureFrame} className="btn btn-success btn-full">
-                        <Camera size={20} />
+                        <Camera size={18} />
                         Capture
                       </button>
 
                       {/* NEW CAMERA SWITCH BUTTON */}
                       <button onClick={switchCamera} className="btn btn-secondary">
-                        <RefreshCw size={20} />
+                        <RefreshCw size={18} />
                         Switch Camera
                       </button>
 
                       <button onClick={stopCamera} className="btn btn-danger">
                         Stop
                       </button>
-                    </>
+                    </>                  
+
+                    
                   ) : (
                     <button onClick={cancelCapture} className="btn btn-secondary btn-full">
                       Cancel & Recapture

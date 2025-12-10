@@ -1,4 +1,4 @@
-/* Container and Layout */
+/* /* Container and Layout
 .scanner-container {
   min-height: 100vh;
   background: linear-gradient(to bottom right, #eff6ff, #eef2ff);
@@ -114,10 +114,23 @@
 }
 
 /* Buttons */
-.button-group {
+/* .button-group {
   display: flex;
   gap: 0.75rem;
+} */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;     /* NEW: allows wrapping */
+  gap: 0.75rem;
+  width: 100%;         /* ensures full row width */
+  justify-content: space-between; /* cleaner spacing */
 }
+
+.button-group .btn {
+  flex: 1;             /* NEW: makes all buttons equal width */
+  min-width: 120px;    /* prevents buttons from becoming too small */
+}
+
 
 .btn {
   font-weight: 600;
@@ -132,6 +145,7 @@
   cursor: pointer;
   font-size: 1rem;
 }
+
 
 .btn-full {
   flex: 1;
@@ -459,4 +473,4 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-}
+}  
